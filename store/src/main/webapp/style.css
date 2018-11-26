@@ -1,0 +1,51 @@
+:root {
+  --dark_primary: rgba(56, 142, 60, .85);
+  --light_primary: rgb(200, 230, 201);
+  --light_primary_opa: rgba(200, 230, 201,.85);
+  --primary: rgb(76, 175, 80);
+  --accent: rgb(74, 226, 81);
+  --primary_text: rgb(33, 33, 33);
+  --secondary_text: rgb(117, 117, 117);
+  --divider: rgb(189, 189, 189);
+  --background: rgb(255, 255, 255);
+}
+
+body, html {
+    height: 100%;
+    background-color: lightblue;
+    background-size: cover;
+}
+
+body {
+	margin: 0;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 400;
+}
+
+.submit {
+    border-radius: 5px;
+}
+
+.form{
+  display: flex;
+  max-width: 550px;
+  margin: 0 auto;
+  background: rgba(0,0,0,0.8);
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: #76b852;
+    padding: 10px;
+}
+.grid-item {
+    background-color:  #D0E4F5;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+}

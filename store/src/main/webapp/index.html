@@ -1,0 +1,117 @@
+<span style="font-weight:bold;">
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Generic Online Store</title>
+        <script src="DataController.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+
+    <body>
+        <select id="combo_box">
+            <option value="List">List</option>
+            <option value="Grid">Grid</option>
+        </select>
+        <div class="grid-container" id="grid"></div>
+        <input type="text" id="search" class="input" name="search" placeholder="search">
+        <input type="submit" value="GO" class="btn" onclick="search()">
+        <input type="image" src="img/add.PNG" alt="cart" class="btn" onclick="user()">
+        <input type="image" src="img/cart.PNG" alt="cart" class="btn" onclick="cart()">
+        <p id='user'></p>
+        <input type="submit" value="Login/Sign-Up" class="btn" onclick="login();">
+        <input type="submit" value="Sign Out" class="btn" onclick="logout();">
+        <img src="img/example.jpg" alt="product1">
+        <div id="mainContainer">
+            <div id="productDetails">
+            </div>
+            <div id="productList">
+            </div>
+            <table id="demo"></table>
+            <script>
+                (function() {
+                    var dc = new DataController();
+                    dc.getProducts(fill_table);
+
+                    fill_combo();
+                    fill_user();
+                })();
+
+                function fill_user() {
+                    var temp = getCookie('username');
+                    if (temp != "") {
+                        var p = document.getElementById('user').textContent = 'Welcome back, ' + temp;
+                        //                        alert('My cookie is: '+temp)
+                    } else {
+                        document.getElementById('user').textContent = 'Welcome guest';
+                        //alert('No cookie found :(')
+                    }
+                }
+
+                function fill_table(result) {
+                    var i;
+                    var table = "<tr><th>Brandname</th><th>Color</th><th>Gender</th><th>Name</th><th>SalePrice</th><th>ShortDescription</th><th>Size</th></tr><tbody id='body'>";
+                    for (i = 0; i < result.length; i++) {
+                        if (i >= 10) /*table limited to 10*/ {
+                            break;
+                        }
+                        table +=
+                            "<tr>" +
+                            "<td>" + result[i].brandName + "</td>" +
+                            "<td>" + result[i].color + "</td>" +
+                            "<td>" + result[i].gender + "</td>" +
+                            "<td>" + result[i].name + "</td>" +
+                            "<td>" + result[i].salePrice + "</td>" +
+                            "<td>" + result[i].shortDescription + "</td>" +
+                            "<td>" + result[i].size + "</td>" +
+                            "<td><input type='submit' id=result[i].productId value='Purchuse' onclick='purchuse(this.id);'>"
+                        "</tbody></tr>";
+                    }
+                    document.getElementById("demo").innerHTML = table;
+
+                }
+
+                var dc = new DataController();
+
+                function cart() {
+                    window.location.href = 'http://localhost:8080/generic_store/cart.html'
+                }
+
+                function purchuse(id) {
+                    dc.addToCart(id,getCookie('username'));
+                    alert('Adding item to cart!');
+                }
+
+                function user() {
+                    window.location.href = 'http://localhost:8080/generic_store/edit.html'
+                }
+
+                function login() {
+                    window.location.href = 'http://localhost:8080/generic_store/login.html'
+                }
+
+                function search() {
+                    var search_term = document.getElementById('search').value;
+                    var node = document.getElementById("body");
+                    while (node.hasChildNodes()) {
+                        node.removeChild(node.lastChild);
+                    }
+                    dc.searchProducts(search_term, fill_table);
+                }
+
+                function fill_combo() {
+
+                }
+
+                function logout() {
+                    deleteCookie('username');
+                    alert('Sucessfully logged out!');
+                    document.getElementById('user').textContent = 'Welcome guest';
+                }
+
+            </script>
+    </body>
+
+    </html>
+</span>

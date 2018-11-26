@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Log In</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="DataController.js"></script>
+</head>
+
+<body>
+    <h1>Login</h1>
+    <a href="http://localhost:8080/generic_store/">Home</a>
+    <p>Username</p>
+    <input type="text" id="username" class="input" name="username" required="required" placeholder="Username">
+    <input type="submit" id="submit" value="Submit" class="btn" onclick="manipEl();">
+      <a href="http://localhost:8080/generic_store/signup.html">Don't have an account? Sign up!</a>
+    <script>
+        var dc = new DataController();
+
+        function manipEl() {
+            var username = document.getElementById("username").value;
+            dc.getCustomer(username, showCustomer);
+        }
+
+        function showCustomer(cust) {
+            console.log("customer: ", cust);
+            //var customer = JSON.parse(cust);
+            if (cust.firstName != null) {
+                alert('Redirecting to main screen...');
+                window.location.href = 'http://localhost:8080/generic_store'
+                document.cookie = "username="+cust.userName;
+                alert(document.cookie)
+            } else {
+                alert('Invalid username! Redirecting to sign-up page...');
+                window.location.href = 'http://localhost:8080/generic_store/signup.html'
+            }
+        }
+    </script>
+</body>
+
+</html>

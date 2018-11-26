@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Sign Up</title>
+    <script src="DataController.js"></script>
+</head>
+<body>
+
+<h1>Sign Up</h1>
+<a href="http://localhost:8080/generic_store/">Home</a>
+    <div>
+        <p>First Name</p>
+        <input type="text" id="fname" class="input" name="fname" required="required" placeholder="">
+        <p>Last Name</p>
+        <input type="text" id="lname" class="input" name="lname" required="required" placeholder="">
+        <p>Username</p>
+        <input type="text" id="username" class="input" name="username" required="required" placeholder="">
+        <p>Email</p>
+        <input type="text" id="email" class="input" name="email" required="required" placeholder="">
+    </div>
+    <div id="submit"><input type="submit" id="submit" value="Sign Up" class="btn" onclick="manipEl();"></div>
+    <a href="http://localhost:8080/generic_store/login.html">Have an account? Log In!</a>
+
+<script>
+        var dc = new DataController();
+
+        function manipEl() {
+            var fname = document.getElementById("fname").value;
+            var lname = document.getElementById("lname").value;
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            dc.createCustomer(fname,lname,username,email,null);
+            alert('Account successfully created! Redirecting to login now...');
+            location.assign('http://localhost:8080/generic_store/login.html');
+        }
+    </script>
+</body>
+</html>

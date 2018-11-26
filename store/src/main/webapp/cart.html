@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <style>
+        input:indeterminate {
+            box-shadow: 0 0 1px 1px red;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="DataController.js"></script>
+</head>
+
+<body>
+    <a href="http://localhost:8080/generic_store/">Home</a>
+    <ul>
+        <li><input type="checkbox">not selected
+        </li>
+        <input type="submit" value="Delete" class="btn" onclick="">
+        <li><input type="checkbox" value="">selected
+        </li>
+        <input type="submit" value="Delete" class="btn" onclick="">
+        <li><input type="checkbox" id="indet" value="">indeterminate
+        </li>
+        <input type="submit" value="Delete" class="btn" onclick="">
+        <li><input type="checkbox" value="diabled" disabled>diabled
+        </li>
+        <input type="submit" value="Delete" class="btn" onclick="">
+        <li><input type="checkbox" value="" disabled>diabled selected
+        </li>
+        <input type="submit" value="Delete" class="btn" onclick="">
+        <li><input type="checkbox" id="indet" value="indeterminate" disabled> indeterminate</li>
+        <input type="submit" value="Delete" class="btn" onclick="">
+        <li>A row without a checkbox</li>
+        <input type="submit" value="Delete" class="btn" onclick="">
+    </ul>
+    <table id="cart"></table>
+    <input type="submit" value="Checkout" class="btn" onclick="">
+    <input type="submit" value="Account" class="btn" onclick="">
+    <input type="submit" value="Orders" class="btn" onclick="">
+    <input type="submit" value="Cart(0)" class="btn" onclick="">
+
+    <script>
+        // Make the checkbox indeterminate via JavaScript
+        var checkbox = document.getElementById("indet");
+        checkbox.indeterminate = true;
+    </script>
+
+    <script>
+        var cartId;
+        (function() {
+            var dc = new DataController();
+            dc.getCart(0,getCookie('username'),fill_cart);
+        })();
+        
+        var dc = new DataController();
+
+        function fill_cart(result) {
+            var i;
+            var table = "<tr><th>Brandname</th><th>Color</th><th>Gender</th><th>Name</th><th>SalePrice</th><th>ShortDescription</th><th>Size</th></tr><tbody id='body'>";
+            for (i = 0; i < result.length; i++) {
+                if (i >= 10) /*table limited to 10*/ {
+                    break;
+                }
+                table +=
+                    "<tr>" +
+                    "<td>" + result[i].brandName + "</td>" +
+                    "<td>" + result[i].color + "</td>" +
+                    "<td>" + result[i].gender + "</td>" +
+                    "<td>" + result[i].name + "</td>" +
+                    "<td>" + result[i].salePrice + "</td>" +
+                    "<td>" + result[i].shortDescription + "</td>" +
+                    "<td>" + result[i].size + "</td>" +
+                    "<td><input type='submit' id='"+result[i].productId+"' value='Remove' onclick='remove(this.id)'>"
+                "</tbody></tr>";
+            }
+            document.getElementById("cart").innerHTML = table;
+        }
+        
+        function remove(){
+           
+        }
+    </script>
+</body>
+
+</html>
